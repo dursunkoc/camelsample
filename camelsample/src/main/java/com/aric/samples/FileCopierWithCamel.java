@@ -15,7 +15,6 @@ public class FileCopierWithCamel {
 			@Override
 			public void configure() throws Exception {
 				from("file:data/inbox?noop=true").to("file:data/outbox");
-				from("ftp://10.10.12.119/orders?username=cms&password=crypto13&noop=true").to("file:data/inbox");
 			}
 		});
 
