@@ -5,11 +5,13 @@ package com.aric.samples;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.springframework.stereotype.Component;
 
 /**
  * @author TTDKOC
  *
  */
+@Component
 public class DownloadLogger implements Processor {
 
 	/* (non-Javadoc)
