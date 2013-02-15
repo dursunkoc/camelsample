@@ -5,19 +5,21 @@ package com.aric.samples;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spring.SpringRouteBuilder;
+import org.springframework.stereotype.Component;
 
 /**
  * @author TTDKOC
  *
  */
-public class FtpToJmsRoute extends RouteBuilder {
+@Component
+public class FtpToJmsRoute extends SpringRouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
 		String ftpUrl = "ftp://10.10.12.119/orders?username=cms&password=crypto13&noop=true";
-//		String toUrl = "jms:camelSampleQ";
-		String toUrl = "file:data/inbox";
+		String toUrl = "jms:camelSampleQ";
+//		String toUrl = "file:data/inbox";
 		Processor processor = new Processor() {
 			
 			@Override

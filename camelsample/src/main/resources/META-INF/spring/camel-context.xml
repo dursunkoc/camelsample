@@ -3,31 +3,26 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<context:component-scan base-package="com.aric.samples" />
 
 	<bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
 		<property name="connectionFactory">
 			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
 				<property name="brokerURL" value="tcp://10.10.12.119:61616" />
-				<property name="userName" value="admin"/>
-				<property name="password" value="admin"/>
+				<property name="userName" value="admin" />
+				<property name="password" value="admin" />
 			</bean>
 		</property>
 	</bean>
 
-	<bean id="ftpToJMSRoute" class="com.aric.samples.FtpToJmsRoute"/>
-	<bean id="downloadLogger" class="com.aric.samples.DownloadLogger"/>
-
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
-		<route>
-			<from
-				uri="ftp://10.10.12.119/orders?username=cms&amp;password=crypto13&amp;noop=true" />
-				<process ref="downloadLogger"/>
-			<camel:process ref="downloadLogger"/>
-			<to uri="jms:camelSampleQ" />
-		</route>
+		<contextScan/>
 	</camelContext>
 
 </beans>
