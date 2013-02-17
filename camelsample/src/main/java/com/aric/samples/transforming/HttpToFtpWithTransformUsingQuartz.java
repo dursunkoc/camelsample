@@ -11,7 +11,7 @@ import org.apache.camel.impl.DefaultCamelContext;
  * @author TTDKOC
  *
  */
-public class HttpToFtpWithCsvBeanUsingQuartz {
+public class HttpToFtpWithTransformUsingQuartz {
 	
 	/**
 	 * @param args
@@ -22,10 +22,10 @@ public class HttpToFtpWithCsvBeanUsingQuartz {
 		context.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
-				from("quartz://report?cron=0/5+*+*+*+*+?").
+				from("quartz://report?cron=0/1+*+*+*+*+?").
 					to("http://10.10.12.119/index.html").
-					bean(PersonToCsvProcessor.class).
-					to("file://data/out/orders?fileName=report-${date:now:yyyyMMddhh24mmss}.csv");
+					transform(body().regexReplaceAll("\n", "<br/>")).
+					to("file://data/out/orders?fileName=trep-${date:now:yyyyMMddhh24mmss}.html");
 			}
 		});
 		context.start();
