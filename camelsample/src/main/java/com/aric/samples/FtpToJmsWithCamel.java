@@ -22,16 +22,16 @@ public class FtpToJmsWithCamel {
 	 */
 	public static void main(String[] args) throws Exception {
 		CamelContext camelContext = new DefaultCamelContext();
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
-				"vm://10.10.12.119");
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("admin","admin",
+				"tcp://10.10.12.119:61616");
 		camelContext.addComponent("jms",
 				JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
 		camelContext.addRoutes(new RouteBuilder() {
 			@Override
 			public void configure() throws Exception {
 				String ftpUrl = "ftp://10.10.12.119/orders?username=cms&password=crypto13&noop=true";
-//				String toUrl = "jms:camelSampleQ";
-				String toUrl = "file:data/inbox";
+				String toUrl = "jms:camelSampleQ";
+//				String toUrl = "file:data/inbox";
 				Processor processor = new Processor() {
 					
 					@Override
@@ -40,7 +40,7 @@ public class FtpToJmsWithCamel {
 						System.out.println("++Others: "+exchange.getIn().getHeaders());
 					}
 				};
-				from(ftpUrl).process(processor ).to(toUrl);
+				from(ftpUrl).process(processor).to(toUrl);
 			}
 		});
 
