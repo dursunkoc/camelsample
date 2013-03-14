@@ -19,30 +19,32 @@ import org.apache.camel.impl.SimpleRegistry;
 public class UsingBeanWithSimpleRegistry {
 	private static SimpleRegistry registry = new SimpleRegistry();
 	private static CamelContext camelContext = new DefaultCamelContext(registry);
-	private static ProducerTemplate producerTemplate = camelContext
-			.createProducerTemplate();
+	private static ProducerTemplate pt = camelContext.createProducerTemplate();
 
 	public static void main(String[] args) throws Exception {
 		registry.put("helloBean", new HelloBean());
 		camelContext.addRoutes(new RouteBuilder() {
-			
+
 			public void configure() throws Exception {
 				from("direct:start").beanRef("helloBean");
 			}
 		});
 		camelContext.start();
-		Object result = producerTemplate.requestBody("direct:start", "World!");
+		Map<String, Object> map;
+
+		map = new HashMap<String, Object>();
+		map.put("beanName", "helloBean");
+		Object result = pt.requestBodyAndHeaders("direct:start", "World!", map,String.class);
 		System.out.println(result);
-		
-		
-		Map<String, Object> map=new HashMap<String, Object>();
-		
+
+		map = new HashMap<String, Object>();
 		map.put("CamelBeanMethodName", "hello");
-		result = producerTemplate.requestBodyAndHeaders("direct:start", "World!",map);
+		result = pt.requestBodyAndHeaders("direct:start", "World!", map);
 		System.out.println(result);
-		
+
+		map = new HashMap<String, Object>();
 		map.put("CamelBeanMethodName", "hellov");
-		result = producerTemplate.requestBodyAndHeaders("direct:start", "World!",map);
+		result = pt.requestBodyAndHeaders("direct:start", "World!", map);
 		System.out.println(result);
 		camelContext.stop();
 	}
