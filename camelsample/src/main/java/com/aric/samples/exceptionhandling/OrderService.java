@@ -18,7 +18,7 @@ public class OrderService {
 	public String validateForTime(String input, Exchange exchange) {
 		lapTime(exchange);
 		Long retry = getRetry(exchange);
-		if (retry < 3) {
+		if (retry < 6) {
 			setRetry(exchange, retry + 1);
 			System.out.println("input('" + input + "'); exchange('" + exchange
 					+ "') should be retried!");

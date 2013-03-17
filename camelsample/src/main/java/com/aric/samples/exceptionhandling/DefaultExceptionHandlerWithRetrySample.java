@@ -4,6 +4,7 @@
 package com.aric.samples.exceptionhandling;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -27,7 +28,9 @@ public class DefaultExceptionHandlerWithRetrySample {
 			@Override
 			public void configure() throws Exception {
 				errorHandler(defaultErrorHandler().maximumRedeliveries(5)
-						.redeliveryDelay(2000).backOffMultiplier(2));
+						.redeliveryDelay(1000).backOffMultiplier(1.1)
+						.logStackTrace(false).logExhausted(true)
+						.retryAttemptedLogLevel(LoggingLevel.WARN));
 				from("direct:start").beanRef("orderService", "validateForTime")
 						.beanRef("orderService", "store");
 			}
