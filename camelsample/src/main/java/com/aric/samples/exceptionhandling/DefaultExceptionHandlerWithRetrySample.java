@@ -28,9 +28,9 @@ public class DefaultExceptionHandlerWithRetrySample {
 			@Override
 			public void configure() throws Exception {
 				errorHandler(defaultErrorHandler().maximumRedeliveries(5)
-						.redeliveryDelay(1000).backOffMultiplier(1.1)
+						.asyncDelayedRedelivery().redeliveryDelay(1000).backOffMultiplier(1.1)
 						.logStackTrace(false).logExhausted(true)
-						.retryAttemptedLogLevel(LoggingLevel.WARN));
+						.retryAttemptedLogLevel(LoggingLevel.INFO));
 				from("direct:start").beanRef("orderService", "validateForTime")
 						.beanRef("orderService", "store");
 			}
