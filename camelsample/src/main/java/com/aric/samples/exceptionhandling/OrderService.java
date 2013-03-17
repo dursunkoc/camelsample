@@ -16,6 +16,9 @@ public class OrderService {
 	}
 
 	public String validateForTime(String input, Exchange exchange) {
+		System.out.println("REDELIVERY_COUNTER     :>"+exchange.getIn().getHeader(Exchange.REDELIVERY_COUNTER));
+		System.out.println("REDELIVERED            :>"+exchange.getIn().getHeader(Exchange.REDELIVERED));
+		System.out.println("REDELIVERY_MAX_COUNTER :>"+exchange.getIn().getHeader(Exchange.REDELIVERY_MAX_COUNTER));
 		lapTime(exchange);
 		Long retry = getRetry(exchange);
 		if (retry < 6) {
