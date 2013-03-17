@@ -38,6 +38,7 @@ public class DefaultExceptionHandlerWithRetrySample {
 
 		camelContext.start();
 		pt.sendBody("direct:start", "product=1,customer=101");
+		pt.sendBody("direct:start", "product=2,customer=201");
 
 		Thread.sleep(30000);
 		camelContext.stop();
