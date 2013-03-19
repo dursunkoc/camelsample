@@ -1,0 +1,15 @@
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<propertyPlaceholder id="properties"
+			location="classpath:rider-prod.properties" />
+		<route>
+			<from uri="file://{{file.inbox}}" />
+			<to uri="file://{{file.outbox}}" />
+		</route>
+	</camelContext>
+</beans>
