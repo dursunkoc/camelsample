@@ -17,6 +17,7 @@
 		<camel.version>2.10.2</camel.version>
 		<activemq.version>5.7.0</activemq.version>
 		<junit.version>4.8.1</junit.version>
+		<hawtdb.version>1.6</hawtdb.version>
 	</properties>
 
 	<dependencies>
@@ -69,7 +70,17 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-stream</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jetty</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-hawtdb</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
 
@@ -78,6 +89,13 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
 			<version>${activemq.version}</version>
+		</dependency>
+
+		<!-- HawtDB -->
+		<dependency>
+			<groupId>org.fusesource.hawtdb</groupId>
+			<artifactId>hawtdb</artifactId>
+			<version>${hawtdb.version}</version>
 		</dependency>
 		<!-- logging -->
 		<dependency>
